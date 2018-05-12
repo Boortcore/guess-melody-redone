@@ -69,7 +69,7 @@ class GameScreen {
     try {
       const time = this.model.getTime();
       if (time < 1) {
-        this.stopGame();
+        this.finishGame();
         this.goToFailScreen();
       }
       const timer = new TimerView(time);
@@ -77,20 +77,23 @@ class GameScreen {
       timerWrapper.innerHTML = ``;
       timerWrapper.appendChild(timer.element);
     } catch (err) {
-      clearInterval(this._interval);
+      this.finishGame();
     }
   }
 
   goToFailScreen() {
-    this.model.resetState();
     Application.showFail();
   }
 
+  finishGame() {
+    this.stopGame();
+    this.model.resetState();
+  }
   goToStatsScreen() {
     preloadScreen.init();
     const data = {id: Date.now(), time: TOTAL_TIME - this.model.getTime(), answers: this.model.getAnswerCounter()};
     this.model.result = JSON.stringify(data);
-    this.model.resetState();
+    this.finishGame();
     Application.showStats(`=${data.id}`);
   }
 
