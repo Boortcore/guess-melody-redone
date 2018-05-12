@@ -2,7 +2,7 @@ import {takeAnswer} from "./answers";
 
 export default Object.freeze({
   level: 0,
-  time: 120,
+  time: 10,
   lives: 5,
 });
 

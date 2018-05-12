@@ -1,9 +1,6 @@
 import GenreView from '../genre/genre-view';
 import ArtistView from '../artist/artist-view';
 import TimerView from '../timer/timer-view';
-import {getAnswerCounter, resetAnswerCounter} from "../data/answers";
-import initialState, {updateState, tick} from '../data/state';
-import {getQuestions} from '../data/questions';
 import Application from "../Application";
 import {TOTAL_TIME} from "../constants/constants";
 import preloadScreen from '../preloader/preloader';
@@ -15,7 +12,7 @@ function changeView(screenView) {
 }
 
 class GameScreen {
-  constructor(state = initialState) {
+  constructor() {
     this._interval = null;
   }
 
@@ -71,7 +68,7 @@ class GameScreen {
   updateTimer() {
     try {
       const time = this.model.getTime();
-      if (time < 0) {
+      if (time < 1) {
         this.stopGame();
         this.goToFailScreen();
       }
@@ -85,7 +82,7 @@ class GameScreen {
   }
 
   goToFailScreen() {
-    this.resetStateInfo();
+    this.model.resetState();
     Application.showFail();
   }
 
