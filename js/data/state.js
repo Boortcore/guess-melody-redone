@@ -1,11 +1,11 @@
-// import {takeAnswer} from "./answers";
-//
-// export default Object.freeze({
-//   level: 0,
-//   time: 120,
-//   lives: 3,
-// });
-//
+import {takeAnswer} from "./answers";
+
+export default Object.freeze({
+  level: 0,
+  time: 120,
+  lives: 3,
+});
+
 // export function changeLevel(state) {
 //   debugger;
 //   const level = state.level + 1;
