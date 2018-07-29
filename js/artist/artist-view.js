@@ -14,7 +14,7 @@ const renderAnswers = function (answers) {
 };
 
 export default class ArtistView extends AbstractView {
-  constructor(state, data) {
+  constructor(data) {
     super();
     this.data = data;
   }
@@ -34,7 +34,7 @@ export default class ArtistView extends AbstractView {
     window.initializePlayer(this.element.querySelector(`.player-wrapper`), this.data.src, false);
     Array.from(this.element.querySelectorAll(`.main-answer-r`)).forEach((input) => {
       input.addEventListener(`click`, (e) => {
-        const currentAnswer = e.target.value === `true`;
+        const currentAnswer = e.target.value;
         this.onClick(currentAnswer);
       });
     });

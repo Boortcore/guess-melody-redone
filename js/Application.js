@@ -48,7 +48,7 @@ export default class Application {
   _startGameScreen() {
     const controller = this.routes[ControllerID.GAME_SCREEN];
     this.model.load().then((data) => {
-      this.model.saveQuestions(data);
+      this.model.setQuestions(data);
       controller.init(this.model);
     });
   }
@@ -60,8 +60,8 @@ export default class Application {
     const initialPromise = result ? send(result) : Promise.resolve();
     initialPromise
       .then(getResults)
-      .then((results) => getStatistic(results, hashId))
-      .then((statistic) => controller.init(statistic));
+      .then((results) => controller.init(getStatistic(results, hashId)))
+      // .then((statistic) => controller.init(statistic));
   }
 
   static showWelcome() {

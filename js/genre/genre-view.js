@@ -13,7 +13,7 @@ const renderAnswers = function (answers, correct) {
 };
 
 export default class GenreView extends AbstractView {
-  constructor(state, data) {
+  constructor(data) {
     super();
     this.data = data;
   }
@@ -38,8 +38,8 @@ export default class GenreView extends AbstractView {
       window.initializePlayer(wrapper, this.data.answers[index].src, false);
       wrapper.querySelector(`.player-control`).addEventListener(`click`, (e) => {
         e.preventDefault();
-      })
-    })
+      });
+    });
 
     const sendButton = form.querySelector(`.genre-answer-send`);
 
@@ -53,16 +53,7 @@ export default class GenreView extends AbstractView {
     form.addEventListener(`submit`, (e) => {
       e.preventDefault();
 
-      const allRightIsChecked = answers
-        .filter((answer) => answer.value === this.data.genre)
-        .every((answer) => answer.checked === true);
-      const allWrongIsUnchecked = answers
-        .filter((answer) => answer.value !== this.data.genre)
-        .every((answer) => answer.checked !== true);
-
-      const currentAnswer = allRightIsChecked && allWrongIsUnchecked;
-
-      this.onClick(currentAnswer);
+      this.onClick(answers);
     });
   }
   onClick() {

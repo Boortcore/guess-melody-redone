@@ -1,8 +1,4 @@
 import AbstractView from '../AbstractView';
-// import getElementFromTemplate from "../getElementFromTemplate";
-// import getScreenInfo from '../getScreenInfo';
-// import renderScreen from '../renderScreen';
-
 
 export default class WelcomeView extends AbstractView {
   get template() {

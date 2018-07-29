@@ -11,7 +11,6 @@ export default class GameModel extends Model {
     this.getResults = this.getResults.bind(this);
     this.send = this.send.bind(this);
   }
-
   get urlRead() {
     return `https://intensive-ecmascript-server-btfgudlkpi.now.sh/guess-melody/questions`;
   }
@@ -19,7 +18,6 @@ export default class GameModel extends Model {
   get urlWrite() {
     return `https://intensive-ecmascript-server-btfgudlkpi.now.sh/guess-melody/stats/3341`;
   }
-
   get urlStatistic() {
     return `https://intensive-ecmascript-server-btfgudlkpi.now.sh/guess-melody/stats/3341`;
   }
@@ -27,15 +25,13 @@ export default class GameModel extends Model {
   get currentResult() {
     return this.result;
   }
-
   set currentResult(value) {
     this.result = Object.assign({}, value);
   }
-
   get numberOfQuestions() {
     return this.questions.length;
   }
-  saveQuestions(data) {
+  setQuestions(data) {
     this.questions = data;
   }
   getQuestion() {
@@ -63,27 +59,21 @@ export default class GameModel extends Model {
     return this.correctAnswers;
   }
   updateState(answerValue) {
-    if (typeof answerValue === `boolean`) {
-      this.takeAnswer(answerValue);
-      this.setLivesValue(answerValue);
-    }
+    this.takeAnswer(answerValue);
+    this.setLivesValue(answerValue);
     this.changeLevel();
   }
-
   setLivesValue(answer) {
     const lives = this.state.lives - 1;
     this.state = answer ? this.state : Object.assign({}, this.state, {lives});
   }
-
   tick() {
     this.state = Object.assign({}, this.state, {time: this.state.time - 1});
   }
-
   resetState() {
     this.state = initialState;
     this.correctAnswers = 0;
   }
-
   getResults() {
     return fetch(this.urlStatistic)
       .then((resp) => {

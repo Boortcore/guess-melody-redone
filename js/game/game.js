@@ -1,15 +1,9 @@
-import GenreView from '../genre/genre-view';
-import ArtistView from '../artist/artist-view';
+import GenreScreen from '../genre/genre';
+import ArtistScreen from '../artist/artist';
 import TimerView from '../timer/timer-view';
 import Application from "../Application";
 import {TOTAL_TIME} from "../constants/constants";
 import preloadScreen from '../preloader/preloader';
-
-function changeView(screenView) {
-  const mainContainer = document.querySelector(`section.main`);
-  mainContainer.innerHTML = ``;
-  mainContainer.appendChild(screenView.element);
-}
 
 class GameScreen {
   constructor() {
@@ -20,10 +14,10 @@ class GameScreen {
     if (model) {
       this.model = model;
     }
-    this.view = this.getView();
-    changeView(this.view);
+    this.screen = this.getScreen();
+    this.screen.init();
     this.startGame();
-    this.view.onClick = (currentAnswer) => {
+    this.screen.getAnswer = (currentAnswer) => {
       this.stopGame();
       this.model.updateState(currentAnswer);
       if (this.model.getLives() === 0 || this.model.getTime() < 0) {
@@ -48,28 +42,27 @@ class GameScreen {
     }, 1000);
   }
 
-  getView() {
-    let View = null;
+  getScreen() {
+    let Screen = null;
     let data = this.model.getQuestion();
     const nextScreenType = data.type;
     switch (nextScreenType) {
       case `genre`:
-        View = GenreView;
+        Screen = GenreScreen;
         break;
       case `artist`:
-        View = ArtistView;
+        Screen = ArtistScreen;
         break;
       default:
         break;
     }
-    return new View(this.model.state, data);
+    return new Screen(data);
   }
 
   updateTimer() {
     try {
       const time = this.model.getTime();
       if (time < 1) {
-        this.finishGame();
         this.goToFailScreen();
       }
       const timer = new TimerView(time);
@@ -82,6 +75,7 @@ class GameScreen {
   }
 
   goToFailScreen() {
+    this.finishGame();
     Application.showFail();
   }
 
@@ -89,6 +83,7 @@ class GameScreen {
     this.stopGame();
     this.model.resetState();
   }
+
   goToStatsScreen() {
     preloadScreen.init();
     const data = {id: Date.now(), time: TOTAL_TIME - this.model.getTime(), answers: this.model.getAnswerCounter()};

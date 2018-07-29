@@ -1,4 +1,4 @@
-import {getPercent} from '../data/statistics';
+// import {getPercent} from '../data/statistics';
 import AbstractView from '../AbstractView';
 
 export default class SuccessView extends AbstractView {
@@ -8,7 +8,7 @@ export default class SuccessView extends AbstractView {
   }
 
   get template() {
-    let content
+    let content;
     if (this.statistic) {
       const {result: {time, answers}, percent} = this.statistic;
       const minutes = String(parseInt(time / 60, 10)).padStart(2, `0`);
@@ -27,7 +27,7 @@ export default class SuccessView extends AbstractView {
         <div class="main-stat">Начните игру, чтобы оценить <br> свои музыкальные способности</div>
         <span class="main-comparison">Нажмите конопку "Пуск"</span>
         <span role="button" tabindex="0" class="main-replay">Пуск</span>
-      </section>`
+      </section>`;
     }
 
     return content;

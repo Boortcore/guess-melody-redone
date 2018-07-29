@@ -1,21 +1,28 @@
 import GenreView from './genre-view';
-import getScreenInfo from '../getScreenInfo';
 import renderScreen from '../renderScreen';
-import {answerIsCorrect} from "../data/answers";
-
 
 export default class GenreScreen {
-  constructor(state, question) {
-    this.state = state;
+  constructor(question) {
     this.question = question;
-    this.view = new GenreView(state, question);
+    this.view = new GenreView(question);
   }
 
   init() {
     renderScreen(this.view);
-    this.view.onClick = (answer) => {
-      const correctAnswer = this.question.correctAnswer;
-      getScreenInfo(this.state, answerIsCorrect(answer, correctAnswer));
+    this.view.onClick = (answers) => {
+      const allRightIsChecked = answers
+        .filter((answer) => answer.value === this.question.genre)
+        .every((answer) => answer.checked === true);
+      const allWrongIsUnchecked = answers
+        .filter((answer) => answer.value !== this.question.genre)
+        .every((answer) => answer.checked !== true);
+      const currentAnswer = allRightIsChecked && allWrongIsUnchecked;
+
+      this.getAnswer(currentAnswer);
     };
+  }
+
+  getAnswer() {
+
   }
 }
