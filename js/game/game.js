@@ -20,9 +20,9 @@ class GameScreen {
     this.screen.getAnswer = (currentAnswer) => {
       this.stopGame();
       this.model.updateState(currentAnswer);
-      if (this.model.getLives() === 0 || this.model.getTime() < 0) {
+      if (this.model.isFail()) {
         this.goToFailScreen();
-      } else if (this.model.getLevel() > this.model.numberOfQuestions - 1) {
+      } else if (this.model.isSuccess()) {
         this.goToStatsScreen();
       } else {
         this.init();
