@@ -1,6 +1,6 @@
 import ArtistView from './artist-view';
 import renderScreen from '../renderScreen';
-
+import checkAnswer from './checkAnswer'
 export default class ArtistScreen {
   constructor(question) {
     this.question = question;
@@ -10,8 +10,8 @@ export default class ArtistScreen {
   init() {
     renderScreen(this.view);
     this.view.onClick = (answerValue) => {
-      const answer = answerValue === `true`;
-      this.getAnswer(answer);
+      const currentAnswer = checkAnswer(answerValue);
+      this.getAnswer(currentAnswer);
     };
   }
 

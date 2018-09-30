@@ -53,7 +53,7 @@ export default class GenreView extends AbstractView {
     form.addEventListener(`submit`, (e) => {
       e.preventDefault();
 
-      this.onClick(answers);
+      this.onClick(answers, this.data.genre);
     });
   }
   onClick() {
