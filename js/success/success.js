@@ -12,4 +12,4 @@ class SuccessScreen {
   }
 }
 
-export default new SuccessScreen();
+export default SuccessScreen;

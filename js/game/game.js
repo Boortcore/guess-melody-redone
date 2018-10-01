@@ -6,14 +6,12 @@ import {TOTAL_TIME} from "../constants/constants";
 import preloadScreen from '../preloader/preloader';
 
 class GameScreen {
-  constructor() {
+  constructor(model) {
     this._interval = null;
+    this.model = model;
   }
 
-  init(model) {
-    if (model) {
-      this.model = model;
-    }
+  init() {
     this.screen = this.getScreen();
     this.screen.init();
     this.startGame();
@@ -94,4 +92,4 @@ class GameScreen {
 
 }
 
-export default new GameScreen();
+export default GameScreen;

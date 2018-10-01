@@ -35,27 +35,25 @@ export default class Application {
 
   _changeController(route = ``) {
     preloaderScreen.init();
-    let controller = this.routes[route];
+    let controller = new this.routes[route](this.model);
     if (route.includes(ControllerID.GAME_SCREEN)) {
-      this._startGameScreen();
+      this._startGameScreen(controller);
     } else if (route.includes(ControllerID.RESULT_SUCCESS)) {
-      this._startResultScreen(route);
+      this._startResultScreen(controller, route);
     } else {
       controller.init();
     }
   }
 
-  _startGameScreen() {
-    const controller = this.routes[ControllerID.GAME_SCREEN];
+  _startGameScreen(controller) {
     this.model.load().then((data) => {
       this.model.setQuestions(data);
-      controller.init(this.model);
+      controller.init();
     });
   }
 
-  _startResultScreen(route) {
+  _startResultScreen(controller, route) {
     const {result, getResults, send} = this.model;
-    const controller = this.routes[ControllerID.RESULT_SUCCESS];
     const hashId = parseInt(route.split(`=`)[1], 10);
     const initialPromise = result ? send(result) : Promise.resolve();
     initialPromise

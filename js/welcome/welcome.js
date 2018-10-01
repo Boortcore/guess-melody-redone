@@ -15,4 +15,4 @@ class WelcomeScreen {
   }
 }
 
-export default new WelcomeScreen();
+export default WelcomeScreen;

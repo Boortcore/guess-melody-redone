@@ -12,4 +12,4 @@ class FailScreen {
   }
 }
 
-export default new FailScreen();
+export default FailScreen;
